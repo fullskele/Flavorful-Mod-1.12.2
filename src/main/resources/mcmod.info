@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "flavorful",
+    "name": "Flavorful",
+    "description": "A utility mod allowing for food to exceed their usual stats.",
+    "version": "1.0",
+    "mcversion": "1.12.2",
+    "url": "TBA",
+    "updateUrl": "",
+    "authorList": ["fullskele"],
+    "credits": "fullskele, cadaverous-eris",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
