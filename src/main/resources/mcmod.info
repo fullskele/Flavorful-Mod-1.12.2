@@ -8,9 +8,11 @@
     "url": "TBA",
     "updateUrl": "",
     "authorList": ["fullskele"],
-    "credits": "fullskele, cadaverous-eris",
+    "credits": "fullskele",
     "logoFile": "",
     "screenshots": [],
-    "dependencies": []
+    "dependencies": [ "applecore" ],
+    "useDependencyInformation": "true",
+    "requiredMods": [ "applecore" ]
   }
 ]

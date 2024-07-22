@@ -1,11 +1,11 @@
 package com.fullskele.flavorful;
 
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+
+import java.io.File;
 
 @Mod(modid = Main.MODID, name = Main.NAME, version = Main.VERSION)
 public class Main {
@@ -13,19 +13,16 @@ public class Main {
     public static final String NAME = "Flavorful";
     public static final String VERSION = "1.0";
 
+    public static File config;
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new EventHandlerFood());
-        MinecraftForge.EVENT_BUS.register(new EventHandlerClient());
 
-        if (Loader.isModLoaded("appleskin"))
-            AppleSkinCompat.initialize();
+        ConfigHandler.RegisterConfig(event);
+
+        MinecraftForge.EVENT_BUS.register(new FoodModifier());
+
+        MinecraftForge.EVENT_BUS.register(new FoodTooltipClient());
+
     }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) {
-        // some example code
-    }
-
-
 }
