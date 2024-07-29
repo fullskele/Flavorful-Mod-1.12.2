@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 
-version = '1.0'
+version = '1.0.1'
 group = 'com.fullskele.flavorful'
 archivesBaseName = 'flavorful'
 

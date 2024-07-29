@@ -21,26 +21,51 @@ public class FoodTooltipClient {
                 assert stack.getTagCompound() != null;
                 if (stack.getTagCompound().hasKey("seasoning", 3)) {
                     int seasoningLevel = stack.getTagCompound().getInteger("seasoning") + 1;
-                    String tooltip = "ERROR";
+                    if (seasoningLevel == 0) {return;}
 
-                    if (seasoningLevel < ConfigHandler.TOOLTIP_SEASON_THRESHOLD) {
-                        tooltip = I18n.format("tooltip.flavorful.lightly_seasoned");
-
-                    } else if (seasoningLevel < ConfigHandler.TOOLTIP_SEASON_THRESHOLD*2) {
-                        tooltip = I18n.format("tooltip.flavorful.seasoned");
-
-                    } else {
-                        tooltip = I18n.format("tooltip.flavorful.well_seasoned");
-                    }
-
-                    if (ConfigHandler.TOOLTIP_LEVEL_ENABLED) {
-                        tooltip += " (+" + seasoningLevel + ")";
-                    }
-
-                    event.getToolTip().add(TextFormatting.GOLD + "" + TextFormatting.ITALIC + I18n.format(tooltip));
+                    String tooltip = createTooltip(seasoningLevel);
+                    //TODO make this dark-ish cyan if negative
+                    event.getToolTip().add(tooltip);
                 }
             }
         }
+    }
 
+    private String createTooltip(int seasoningLevel) {
+        String tooltip = "";
+        if (seasoningLevel > 0) {
+            //positive section
+            if (seasoningLevel < ConfigHandler.TOOLTIP_SEASON_THRESHOLD) {
+                tooltip = I18n.format("tooltip.flavorful.lightly_seasoned");
+
+            } else if (seasoningLevel < ConfigHandler.TOOLTIP_SEASON_THRESHOLD * 2) {
+                tooltip = I18n.format("tooltip.flavorful.seasoned");
+
+            } else {
+                tooltip = I18n.format("tooltip.flavorful.well_seasoned");
+            }
+
+            if (ConfigHandler.TOOLTIP_LEVEL_ENABLED)
+                tooltip += " (+" + seasoningLevel + ")";
+
+            tooltip = TextFormatting.GOLD + "" + TextFormatting.ITALIC + tooltip;
+        } else {
+            //negative section
+            if (seasoningLevel > ConfigHandler.TOOLTIP_SEASON_THRESHOLD * -1) {
+                tooltip = I18n.format("tooltip.flavorful.slightly_unpalatable");
+
+            } else if (seasoningLevel > ConfigHandler.TOOLTIP_SEASON_THRESHOLD * -2) {
+                tooltip = I18n.format("tooltip.flavorful.unpalatable");
+
+            } else {
+                tooltip = I18n.format("tooltip.flavorful.very_unpalatable");
+            }
+
+            if (ConfigHandler.TOOLTIP_LEVEL_ENABLED)
+                tooltip += " (" + seasoningLevel + ")";
+
+            tooltip = TextFormatting.DARK_AQUA + "" + TextFormatting.ITALIC + tooltip;
+        }
+        return tooltip;
     }
 }
